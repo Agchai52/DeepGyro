@@ -80,6 +80,65 @@ def computeBlurfield(R,K,nexp,height,width):
     return Bx, By
 
 
+
+
+def computeBlurfield_aided(R, K, time_stamp, te, tr, height, width):
+    def interp_rot(t):
+        """
+        :param t: current timestamp: Float
+        :param acc: acc of a specific axis: Array([float])
+        :return: nearest acc: Float
+        """
+        r_array = R.reshape((-1, 9))
+        if t >= time_stamp[-1]:
+            r_last = r_array[-1, :]
+            return r_last.reshape((3, 3))
+        rot_t = np.array([0.] * 9)
+        for i in range(9):
+            rot_t[i] = np.interp(t, time_stamp, r_array[:, i])
+        return rot_t.reshape((3, 3))
+    Kinv = np.linalg.inv(K)
+
+    xi, yi = np.meshgrid(range(width), range(height))
+    xi = xi.astype(np.float_)
+    yi = yi.astype(np.float_)
+
+    Bx = np.zeros((height, width), dtype=np.float_)
+    By = np.zeros((height, width), dtype=np.float_)
+
+    for row in range(height):
+        x = xi[row, :]
+        y = yi[row, :]
+        z = np.ones(width, dtype=np.float_)
+        X = np.vstack((x, y, z))
+
+        t_row = te / height * row
+        t_row_r = time_stamp[-1]
+        R1 = interp_rot(t_row)
+        R2 = R[-1,:,:]
+
+        H = K.dot(R2).dot(Kinv)
+        #H = K.dot(R1).dot(Kinv)
+        Xp = H.dot(X)
+
+        Xp[0, :] = Xp[0, :] / Xp[2, :]
+        Xp[1, :] = Xp[1, :] / Xp[2, :]
+
+        Bx[row, :] = np.around(X[0, :] - Xp[0, :])
+        By[row, :] = np.around(X[1, :] - Xp[1, :])
+
+    # Make sure that y-component is negative
+    #ypos = By > 0
+    #Bx[ypos] = -1 * Bx[ypos]
+    #By[ypos] = -1 * By[ypos]
+
+    # Bx and By are saved as grayscale images. Cannot
+    # have negative values so the value 128 is added.
+    Bx = (Bx + 128).astype(np.uint8)
+    By = (By + 128).astype(np.uint8)
+
+    return Bx, By
+
  # Computes rotation of the camera during the image exposure 
  # by integrating gyroscope readings.
 def computeRotations(gyr, t):
