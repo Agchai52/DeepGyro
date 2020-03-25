@@ -2,8 +2,8 @@ import os, os.path, errno
 import argparse
 from PIL import Image
 import numpy as np
-from keras.models import Model
-from keras.preprocessing.image import array_to_img
+from tensorflow.keras.models import Model
+from tensorflow.keras.preprocessing.image import array_to_img
 from models import modelsClass
 
 # Parse input arguments
