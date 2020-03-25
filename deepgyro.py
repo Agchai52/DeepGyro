@@ -31,7 +31,8 @@ blury_path = inpath + "/blury/"
 blurred_names = os.listdir(blurred_path)
 blurx_names = os.listdir(blurx_path)
 blury_names = os.listdir(blury_path)
-        
+
+blurred_names = sorted(blurred_names)
 for fname in blurred_names:
         
     print("Deblurring '%s' with DeepGyro" %(fname))
