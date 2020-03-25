@@ -4,6 +4,7 @@ from PIL import Image
 import numpy as np
 from tensorflow.keras.models import Model
 from tensorflow.keras.preprocessing.image import array_to_img
+from tensorflow.keras import backend as keras
 from models import modelsClass
 
 # Parse input arguments
@@ -12,6 +13,8 @@ parser = argparse.ArgumentParser(description=desc)
 parser.add_argument('-i', '--input', type=str, metavar='', required=True, help='input folder')
 args = parser.parse_args()
 inpath = args.input
+
+keras.clear_session()
 
 # Deblurred images will be saved to 'output' folder
 outpath = "output"
