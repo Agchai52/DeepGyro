@@ -21,7 +21,7 @@ if __name__ == '__main__':
         os.makedirs(outpath + '/blurred')
         os.makedirs(outpath + '/blurx')
         os.makedirs(outpath + '/blury')
-        os.makedirs(outpath + '/visualization/')
+        #os.makedirs(outpath + '/visualization/')
 
     ''' Generate blur field for each image '''
 
@@ -52,6 +52,6 @@ if __name__ == '__main__':
         save_blurField(Bx, outpath, 'blurx/', imgName[-6:]+'_blur_err.png')
         save_blurField(By, outpath, 'blury/', imgName[-6:]+'_blur_err.png')
         
-        plotBlurVectors(Bx, By, img, outpath, idx=i) # Optional
+        #plotBlurVectors(Bx, By, img, outpath, idx=i) # Optional
 
 # python generate_aided.py -i ./myrawdata -o ./input
