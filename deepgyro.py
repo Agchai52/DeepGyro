@@ -14,8 +14,6 @@ parser.add_argument('-i', '--input', type=str, metavar='', required=True, help='
 args = parser.parse_args()
 inpath = args.input
 
-keras.clear_session()
-
 # Deblurred images will be saved to 'output' folder
 outpath = "output"
 try:
@@ -34,6 +32,7 @@ blury_names = os.listdir(blury_path)
 
 blurred_names = sorted(blurred_names)
 for fname in blurred_names:
+    keras.clear_session()
         
     print("Deblurring '%s' with DeepGyro" %(fname))
                         
