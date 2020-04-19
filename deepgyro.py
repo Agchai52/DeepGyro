@@ -32,8 +32,8 @@ blury_names = os.listdir(blury_path)
 
 blurred_names = sorted(blurred_names)
 for fname in blurred_names:
-    if fname[:6] <= '033751':
-        continue
+    #if fname[:6] <= '033751':
+    #    continue
     keras.clear_session()
         
     print("Deblurring '%s' with DeepGyro" %(fname))
