@@ -50,7 +50,7 @@ for item in sharp_list:
         ssim_n = ssim(img_deblu / 255, img_sharp / 255, gaussian_weights=True, multichannel=True,
                       use_sample_covariance=False)
 
-        if item[-2:] == '01':
+        if item[-3:] == '001':
             print("Test Image {}, PSNR = {}, SSIM = {}".format(name_sharp, psnr_n, ssim_n))
         PSNR_all.append(psnr_n)
         SSIM_all.append(ssim_n)
