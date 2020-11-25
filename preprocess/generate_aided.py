@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     ''' Generate blur field for each image '''
 
-    f_test = open("./dataset/AidedDeblur/test_instance_names.txt", "r")
+    f_test = open("./dataset/AidedDeblur/train_instance_names.txt", "r")
     imgsName = f_test.readlines()
     imgsName = [line.rstrip() for line in imgsName]
     f_test.close()
