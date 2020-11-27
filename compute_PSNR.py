@@ -25,6 +25,8 @@ sharp_list = sorted(sharp_list, key=str.lower)
 PSNR_all = []
 SSIM_all = []
 
+sample_img_names = set(["010221", "024071", "033451", "051271", "060201",
+                         "070041", "090541", "100841", "101031", "113201"])
 for item in sharp_list:
     if True:
 
@@ -50,7 +52,7 @@ for item in sharp_list:
         ssim_n = ssim(img_deblu / 255, img_sharp / 255, gaussian_weights=True, multichannel=True,
                       use_sample_covariance=False)
 
-        if item[-3:] == '001':
+        if item[-3:] == '001' or name_sharp in sample_img_names:
             print("Test Image {}, PSNR = {}, SSIM = {}".format(name_sharp, psnr_n, ssim_n))
         PSNR_all.append(psnr_n)
         SSIM_all.append(ssim_n)
