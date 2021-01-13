@@ -6,7 +6,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.preprocessing.image import array_to_img
 from tensorflow.keras import backend as keras
 from models import modelsClass
-
+import time
 # Parse input arguments
 desc = "DeepGyro - Gyro-aided deblurring method."
 parser = argparse.ArgumentParser(description=desc)
@@ -31,6 +31,7 @@ blurx_names = os.listdir(blurx_path)
 blury_names = os.listdir(blury_path)
 
 blurred_names = sorted(blurred_names)
+start_time = time.time()
 for fname in blurred_names:
     #if fname[:6] <= '033751':
     #    continue
@@ -61,5 +62,7 @@ for fname in blurred_names:
             
     deblurred_img = array_to_img(prediction)
     deblurred_img.save(outpath+"/%s"%(fname))
-            
+total_time = time.time() - start_time
+ave_time = total_time / len(blurred_names)
+print("Average Processing time = {}".format(ave_time))
 print("DONE!")
